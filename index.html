@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#062b4f" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icon-180.png" />
+<title>L'Ottava Meraviglia</title>
+<style>
+:root{--bg:#061d35;--card:#0b3158;--card2:#0d3b67;--txt:#fff;--muted:#bed0df;--gold:#f2c75c;--cyan:#35c6ff;--green:#49d59d;--line:#315b7c}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Segoe UI,sans-serif;background:linear-gradient(180deg,#061d35,#082b4d 70%,#04182b);color:var(--txt);min-height:100vh}.app{max-width:720px;margin:0 auto;padding:18px 16px 40px}.hero{display:grid;grid-template-columns:118px 1fr;gap:16px;align-items:center;margin-bottom:18px}.hero img{width:118px;height:118px;object-fit:cover;object-position:46% 18%;border-radius:28px;box-shadow:0 10px 30px #0005}.hero h1{margin:0;font-size:30px;line-height:1.0}.hero p{margin:8px 0 0;color:var(--muted);font-size:14px}.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid #ffffff14;border-radius:24px;padding:18px;margin-bottom:14px;box-shadow:0 8px 30px #0002}.row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin:14px 0 8px}.label{font-size:14px;color:var(--muted)}.value{font-weight:700}.input{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#061d35;color:#fff;font-size:17px}.range{width:100%;accent-color:var(--cyan)}.big{font-size:34px;font-weight:800;letter-spacing:-1px}.sub{color:var(--muted);font-size:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.metric{background:#061d35aa;border:1px solid #ffffff10;border-radius:16px;padding:12px}.metric b{display:block;margin-top:4px}.goal{display:flex;justify-content:space-between;gap:16px;align-items:end}.goal b{font-size:25px}.chart-wrap{overflow:hidden;border-radius:16px;background:#061d35aa;padding:10px;margin-top:12px}canvas{width:100%;height:220px;display:block}.pill{display:inline-block;background:#0a223c;border:1px solid #ffffff1a;border-radius:999px;padding:7px 10px;font-size:12px;color:var(--gold);font-weight:700}.foot{font-size:12px;color:var(--muted);line-height:1.45}.install{margin-top:16px;padding:14px;border-radius:16px;background:#ffffff0b;border:1px dashed #ffffff30;color:var(--muted);font-size:13px}.accent{color:var(--gold)}
+@media(max-width:430px){.hero{grid-template-columns:96px 1fr}.hero img{width:96px;height:96px;border-radius:24px}.hero h1{font-size:26px}.grid{grid-template-columns:1fr}.big{font-size:31px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="hero">
+    <img src="cover.png" alt="L'Ottava Meraviglia" />
+    <div><span class="pill">Interesse composto</span><h1>L'Ottava Meraviglia</h1><p>Scopri cosa possono fare insieme tempo, costanza e rendimento.</p></div>
+  </section>
+
+  <section class="card">
+    <div class="row"><span class="label">Capitale iniziale</span><span id="initialOut" class="value">€10.000</span></div>
+    <input id="initial" class="input" type="number" min="0" step="100" value="10000" />
+
+    <div class="row"><span class="label">Contributo mensile</span><span id="monthlyOut" class="value">€200</span></div>
+    <input id="monthly" class="input" type="number" min="0" step="10" value="200" />
+
+    <div class="row"><span class="label">Rendimento annuo</span><span id="rateOut" class="value">7,0%</span></div>
+    <input id="rate" class="range" type="range" min="0" max="15" step="0.1" value="7" />
+
+    <div class="row"><span class="label">Durata</span><span id="yearsOut" class="value">30 anni</span></div>
+    <input id="years" class="range" type="range" min="1" max="60" step="1" value="30" />
+  </section>
+
+  <section class="card">
+    <div class="sub">Valore finale stimato</div>
+    <div id="final" class="big accent">—</div>
+    <div id="multiple" class="sub"></div>
+    <div class="grid">
+      <div class="metric"><span class="sub">Totale versato</span><b id="contrib">—</b></div>
+      <div class="metric"><span class="sub">Interessi maturati</span><b id="interest">—</b></div>
+    </div>
+    <div class="chart-wrap"><canvas id="chart" width="680" height="220"></canvas></div>
+  </section>
+
+  <section class="card">
+    <div class="goal"><div><div class="sub">Obiettivo</div><div style="font-size:18px;font-weight:700">Quando raggiungo €1.000.000?</div></div><b id="million">—</b></div>
+    <p id="millionDetail" class="sub"></p>
+  </section>
+
+  <section class="card">
+    <div class="goal"><div><div class="sub">Regola del 72</div><div style="font-size:18px;font-weight:700">Tempo indicativo per raddoppiare</div></div><b id="rule72">—</b></div>
+    <p class="sub">72 ÷ rendimento annuo %. Una scorciatoia utile per visualizzare la forza del tempo.</p>
+  </section>
+
+  <div class="install"><b>Su iPhone:</b> apri questa pagina in Safari → Condividi → <b>Aggiungi alla schermata Home</b>. L'app comparirà con la sua icona.</div>
+  <p class="foot">Simulazione puramente illustrativa. I rendimenti reali non sono costanti e possono essere negativi; costi, imposte e inflazione possono modificare significativamente i risultati.</p>
+</div>
+<script>
+const $=id=>document.getElementById(id);const fmt=new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0});const f1=n=>new Intl.NumberFormat('it-IT',{minimumFractionDigits:1,maximumFractionDigits:1}).format(n);
+function calcSeries(initial,monthly,rate,years){const rm=Math.pow(1+rate,1/12)-1;let b=initial;const arr=[{y:0,v:b,c:initial}];for(let m=1;m<=years*12;m++){b=b*(1+rm)+monthly;if(m%12===0)arr.push({y:m/12,v:b,c:initial+monthly*m});}return arr}
+function targetYears(initial,monthly,rate){if(initial>=1e6)return 0;const rm=Math.pow(1+rate,1/12)-1;let b=initial;for(let m=1;m<=1200;m++){b=b*(1+rm)+monthly;if(b>=1e6)return m/12}return null}
+function draw(arr){const c=$('chart'),ctx=c.getContext('2d'),W=c.width,H=c.height,p=26,max=Math.max(...arr.map(d=>d.v),1),maxY=Math.max(...arr.map(d=>d.y),1);ctx.clearRect(0,0,W,H);ctx.strokeStyle='#315b7c';ctx.lineWidth=1;for(let i=0;i<=4;i++){const y=p+(H-2*p)*i/4;ctx.beginPath();ctx.moveTo(p,y);ctx.lineTo(W-p,y);ctx.stroke()}const X=y=>p+(W-2*p)*y/maxY,Y=v=>H-p-(H-2*p)*v/max;ctx.beginPath();arr.forEach((d,i)=>{const x=X(d.y),y=Y(d.v);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.lineTo(X(maxY),Y(0));ctx.lineTo(X(0),Y(0));ctx.closePath();ctx.fillStyle='rgba(53,198,255,.18)';ctx.fill();ctx.beginPath();arr.forEach((d,i)=>{const x=X(d.y),y=Y(d.v);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.strokeStyle='#35c6ff';ctx.lineWidth=4;ctx.stroke();ctx.beginPath();arr.forEach((d,i)=>{const x=X(d.y),y=Y(d.c);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.strokeStyle='#49d59d';ctx.lineWidth=3;ctx.stroke()}
+function update(){const initial=Math.max(0,+$('initial').value||0),monthly=Math.max(0,+$('monthly').value||0),rate=(+$('rate').value||0),years=+$('years').value;$('initialOut').textContent=fmt.format(initial);$('monthlyOut').textContent=fmt.format(monthly);$('rateOut').textContent=f1(rate)+'%';$('yearsOut').textContent=years+' '+(years===1?'anno':'anni');const arr=calcSeries(initial,monthly,rate/100,years),last=arr[arr.length-1],contrib=initial+monthly*12*years,interest=last.v-contrib;$('final').textContent=fmt.format(last.v);$('contrib').textContent=fmt.format(contrib);$('interest').textContent=fmt.format(interest);$('multiple').textContent=contrib>0?'Valore finale pari a '+f1(last.v/contrib)+'× il capitale complessivamente versato.':'';const t=targetYears(initial,monthly,rate/100);if(t===null){$('million').textContent='>100 anni';$('millionDetail').textContent='Con questi parametri l’obiettivo non viene raggiunto entro 100 anni.'}else if(t===0){$('million').textContent='Già raggiunto';$('millionDetail').textContent='Il capitale iniziale è già almeno pari a €1.000.000.'}else{const y=Math.floor(t),m=Math.round((t-y)*12);$('million').textContent=y+'a '+(m?m+'m':'');$('millionDetail').textContent='Con rendimento costante del '+f1(rate)+'% e '+fmt.format(monthly)+' al mese.'}$('rule72').textContent=rate>0?f1(72/rate)+' anni':'—';draw(arr)}
+['initial','monthly','rate','years'].forEach(id=>$(id).addEventListener('input',update));update();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+</script>
+</body>
+</html>
